@@ -1,0 +1,1017 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>K-Legis — 한국어 콘셉트 목업(예시 데이터)</title>
+</head>
+<body>
+<style>
+:root{
+  color-scheme:light;
+  --paper:#FCFCFA; --card:#FFFFFF; --ink:#1B1D21; --sub:#5C6470; --mute:#8B919C;
+  --line:#E5E3DC; --line-strong:#CFCCC2;
+  --accent:#1D4FA1; --accent-tint:#EAF0FA;
+  --n-stat:#1D4FA1; --n-stat-tint:#EAF0FA; --n-stat-line:#C6D4EC;
+  --n-proc:#93326E; --n-proc-tint:#F7EBF3; --n-proc-line:#E3C8D9;
+  --n-data:#8A5A0B; --n-data-tint:#FAF0DA; --n-data-line:#E8D5AC;
+  --fact-fg:#0B7C50; --fact-bg:#E4F3EC;
+  --est-fg:#8A5A0B; --est-bg:#FAF0DA;
+  --pos:#0B7C50; --neg:#A8352F;
+  --pos-line:#BFE3D2; --neg-line:#EACBC6;
+  --ink-tint:#EFEEE7; --billc-sub:#B9BDC4;
+  --strip-bg:#1B1D21; --strip-fg:#F4F2EC;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sans:"IBM Plex Sans",-apple-system,"Segoe UI","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#1B1B18; --card:#232420; --ink:#E8E6DE; --sub:#A6A89E; --mute:#83867D;
+    --line:#33342E; --line-strong:#4B4C44;
+    --accent:#7FA3E0; --accent-tint:#263450;
+    --n-stat:#5E8CD8; --n-stat-tint:#24304A; --n-stat-line:#37476B;
+    --n-proc:#C46BA8; --n-proc-tint:#392433; --n-proc-line:#5C3B50;
+    --n-data:#BE8A2E; --n-data-tint:#362B15; --n-data-line:#5C4A24;
+    --fact-fg:#4FBF8F; --fact-bg:#1B3A2C;
+    --est-fg:#D6A150; --est-bg:#3A2F17;
+    --pos:#4FBF8F; --neg:#E08A7C;
+    --pos-line:#2E5B47; --neg-line:#6B3A32;
+    --ink-tint:#2E2F29; --billc-sub:#55564F;
+    --strip-bg:#111210; --strip-fg:#C9C7BD;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#1B1B18; --card:#232420; --ink:#E8E6DE; --sub:#A6A89E; --mute:#83867D;
+  --line:#33342E; --line-strong:#4B4C44;
+  --accent:#7FA3E0; --accent-tint:#263450;
+  --n-stat:#5E8CD8; --n-stat-tint:#24304A; --n-stat-line:#37476B;
+  --n-proc:#C46BA8; --n-proc-tint:#392433; --n-proc-line:#5C3B50;
+  --n-data:#BE8A2E; --n-data-tint:#362B15; --n-data-line:#5C4A24;
+  --fact-fg:#4FBF8F; --fact-bg:#1B3A2C;
+  --est-fg:#D6A150; --est-bg:#3A2F17;
+  --pos:#4FBF8F; --neg:#E08A7C;
+  --pos-line:#2E5B47; --neg-line:#6B3A32;
+  --ink-tint:#2E2F29; --billc-sub:#55564F;
+  --strip-bg:#111210; --strip-fg:#C9C7BD;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+
+.demo-strip{background:var(--strip-bg);color:var(--strip-fg);font-size:12.5px;text-align:center;padding:7px 14px;letter-spacing:.01em}
+.demo-strip .mono{font-family:var(--mono)}
+
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px}
+.wrap-narrow{max-width:880px;margin:0 auto;padding:0 20px}
+
+header.site{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0 16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.wordmark{font-size:19px;font-weight:500;letter-spacing:-.01em}
+.wordmark .tag{font-family:var(--mono);font-size:11.5px;color:var(--sub);font-weight:400;margin-left:10px;letter-spacing:0}
+.hdr-ctrls{display:flex;gap:8px;align-items:center}
+.chip{font-size:12px;padding:3px 11px;border-radius:999px;border:1px solid var(--line);color:var(--sub);background:transparent}
+.chip.on{background:var(--accent-tint);border-color:transparent;color:var(--accent)}
+.langseg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--card)}
+.langseg button{border:none;background:transparent;font-size:12px;padding:5px 13px;color:var(--sub);letter-spacing:.03em}
+.langseg button.on{background:var(--ink);color:var(--paper);font-weight:500}
+.thbtn{font-size:12.5px;padding:5px 13px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--sub);display:inline-flex;gap:7px;align-items:center}
+.thbtn:hover{border-color:var(--line-strong);color:var(--ink)}
+
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin-bottom:10px}
+section.screen{padding:34px 0 44px}
+h1{font-size:24px;font-weight:500;letter-spacing:-.015em;line-height:1.3;margin-bottom:6px;text-wrap:balance}
+.lede{color:var(--sub);max-width:60ch}
+
+.provenance{font-family:var(--mono);font-size:11px;border-radius:999px;padding:1px 8px;white-space:nowrap;vertical-align:1px}
+.provenance.fact{background:var(--fact-bg);color:var(--fact-fg)}
+.provenance.est{background:var(--est-bg);color:var(--est-fg)}
+.provenance.sample{background:transparent;border:1px dashed var(--line-strong);color:var(--mute)}
+
+/* ---- graph controls ---- */
+.gcontrols{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;margin:22px 0 4px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--card)}
+.seg button{border:none;background:transparent;font-size:13px;padding:7px 16px;color:var(--sub)}
+.seg button .k{font-family:var(--mono);font-size:11px;color:var(--mute);margin-left:7px}
+.seg button.on{background:var(--ink);color:var(--paper)}
+.seg button.on .k{color:var(--billc-sub)}
+.depthset{display:inline-flex;gap:6px;align-items:center}
+.depthset .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--mute);margin-right:2px}
+.dchip{font-size:12.5px;padding:5px 13px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--sub)}
+.dchip.on{background:var(--accent-tint);border-color:transparent;color:var(--accent);font-weight:500}
+.gcount{font-family:var(--mono);font-size:11.5px;color:var(--mute);margin-left:auto}
+
+/* ---- graph ---- */
+.gwrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:var(--card);margin-top:12px}
+.gwrap svg{display:block;min-width:980px;width:100%;height:auto}
+.ring{fill:none;stroke:var(--line);stroke-dasharray:2 5}
+.rbadge circle{fill:var(--paper);stroke:var(--line-strong)}
+.rbadge text{font-family:var(--mono);font-size:10px;fill:var(--mute);text-anchor:middle}
+.edge{stroke:var(--line-strong);stroke-width:1.3;fill:none}
+.edge.dash{stroke-dasharray:5 4}
+.edge.hot{stroke:var(--ink);stroke-width:1.8}
+.elabel{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;fill:var(--mute);text-anchor:middle;paint-order:stroke;stroke:var(--card);stroke-width:3.5px}
+.elabel.em{fill:var(--fact-fg);font-weight:500}
+.node{cursor:pointer}
+.node rect.pill{stroke-width:1}
+.node .main{font-size:12px;font-weight:500;text-anchor:middle}
+.node .sub{font-family:var(--mono);font-size:9.5px;fill:var(--mute);text-anchor:middle}
+.node .arr-pos{fill:var(--pos)} .node .arr-neg{fill:var(--neg)}
+.t-billc rect.pill{fill:var(--ink);stroke:var(--ink)}
+.t-billc .main{fill:var(--paper);font-size:13px}
+.t-billc .sub{fill:var(--billc-sub)}
+.t-bill rect.pill{fill:var(--ink-tint);stroke:var(--line-strong)} .t-bill .main{fill:var(--ink)}
+.t-statute rect.pill{fill:var(--n-stat-tint);stroke:var(--n-stat-line)} .t-statute .main{fill:var(--n-stat)}
+.t-proc rect.pill{fill:var(--n-proc-tint);stroke:var(--n-proc-line)} .t-proc .main{fill:var(--n-proc)}
+.t-data rect.pill{fill:var(--n-data-tint);stroke:var(--n-data-line)} .t-data .main{fill:var(--n-data)}
+.t-ctx rect.pill{fill:var(--card);stroke:var(--line-strong);stroke-dasharray:4 3} .t-ctx .main{fill:var(--sub)}
+.t-co rect.pill{fill:var(--card);stroke:var(--line-strong)} .t-co .main{fill:var(--ink)}
+.t-co rect.dbar{rx:2}
+.node.sel rect.pill,.node:hover rect.pill{stroke:var(--ink);stroke-width:1.6}
+.node:focus-visible{outline:none}
+.node:focus-visible rect.pill{stroke:var(--accent);stroke-width:2}
+.spine{stroke:var(--line-strong);stroke-width:1.3;fill:none}
+
+.glegend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12px;color:var(--sub);margin:12px 2px 0;align-items:center}
+.glegend .sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.glegend .sw.dashed{background:var(--card);border:1px dashed var(--line-strong)}
+.glegend .edge-key{font-family:var(--mono);font-size:10.5px;color:var(--mute)}
+
+/* ---- trace ---- */
+.trace{border:1px solid var(--line);border-radius:14px;background:var(--card);padding:16px 20px;margin-top:14px;min-height:96px}
+.trace .hint{color:var(--mute);font-size:13.5px}
+.tpath{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;margin-bottom:8px}
+.tpath .hop{font-family:var(--mono);font-size:12px;background:var(--paper);border:1px solid var(--line);border-radius:7px;padding:2px 9px}
+.tpath .rel{font-family:var(--mono);font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--mute)}
+.trace .tbody{font-size:13.5px;line-height:1.7;color:var(--ink)}
+.trace .tmeta{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;align-items:center}
+.dirchip{font-family:var(--mono);font-size:11px;border-radius:999px;padding:1px 9px;border:1px solid var(--line)}
+.dirchip.up{color:var(--pos);border-color:var(--pos-line)} .dirchip.dn{color:var(--neg);border-color:var(--neg-line)}
+.btn{font-size:13px;padding:7px 14px;border-radius:8px;border:1px solid var(--line-strong);background:var(--card);color:var(--ink)}
+.btn:hover{background:var(--paper)}
+
+/* ---- ticker rail ---- */
+.rail{margin-top:18px}
+.rail .rtitle{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin-bottom:8px}
+.rail .chips{display:flex;flex-wrap:wrap;gap:8px}
+.rchip{display:inline-flex;gap:8px;align-items:baseline;font-size:13px;padding:7px 13px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);transition:border-color .15s ease}
+.rchip:hover{border-color:var(--ink)}
+.rchip .tk{font-family:var(--mono);font-size:11.5px;color:var(--mute)}
+.rchip .up{color:var(--pos);font-weight:500} .rchip .dn{color:var(--neg);font-weight:500}
+.rchip .cf{font-family:var(--mono);font-size:10px;color:var(--mute)}
+
+.pulse{display:flex;flex-wrap:wrap;gap:6px 22px;font-size:13px;color:var(--sub);margin:26px 0 0;align-items:baseline}
+.pulse b{font-family:var(--mono);font-weight:500;color:var(--ink);font-variant-numeric:tabular-nums}
+
+.watch{border-top:1px solid var(--line);padding-top:10px;margin-top:26px}
+.watch-item{display:flex;gap:14px;align-items:baseline;padding:11px 0;border-bottom:1px solid var(--line);font-size:14px}
+.watch-item:last-child{border-bottom:none}
+.watch-item .no{font-family:var(--mono);font-size:12px;color:var(--mute)}
+.watch-item .nm{font-weight:500;min-width:150px}
+.watch-item .why{color:var(--sub);flex:1;font-size:13.5px;line-height:1.6}
+.tagline{margin-top:26px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--sub)}
+@media (max-width:560px){h1{font-size:21px}.watch-item{flex-wrap:wrap}.watch-item .nm{min-width:0}.gcount{margin-left:0}}
+
+/* ---- brief screen ---- */
+#brief{display:none}
+body.show-brief #entry{display:none}
+body.show-brief #brief{display:block}
+.back{background:none;border:none;color:var(--accent);font-size:13.5px;padding:0;margin-bottom:18px;display:inline-flex;gap:6px;align-items:center}
+.snapshot{display:flex;gap:10px;align-items:baseline;background:var(--est-bg);border-radius:10px;padding:9px 14px;font-size:13px;color:var(--est-fg);margin-bottom:22px}
+.snapshot .mono{font-family:var(--mono);font-size:12px}
+.crumb{font-family:var(--mono);font-size:12px;color:var(--mute);margin-bottom:8px}
+.kr-title{font-size:13px;color:var(--sub);margin:4px 0 14px}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:26px}
+.badge{font-size:12px;padding:3px 11px;border-radius:999px;border:1px solid var(--line);color:var(--sub)}
+.badge.theme-badge{background:var(--accent-tint);border-color:transparent;color:var(--accent)}
+.pipe{display:flex;align-items:flex-start;gap:0;overflow-x:auto;padding:6px 0 2px}
+.stage{flex:1;min-width:96px;text-align:center;position:relative}
+.stage .dot{width:12px;height:12px;border-radius:50%;margin:0 auto 8px;border:2px solid var(--line-strong);background:var(--card)}
+.stage.done .dot{background:var(--pos);border-color:var(--pos)}
+.stage.now .dot{width:16px;height:16px;border:4px solid var(--accent);margin-top:-2px;margin-bottom:6px}
+.stage .n{font-size:13px;font-weight:500}
+.stage.future .n{font-weight:400;color:var(--sub)}
+.stage .s{font-family:var(--mono);font-size:11px;color:var(--mute);margin-top:2px;line-height:1.5}
+.stage::before{content:"";position:absolute;top:11px;left:-50%;width:100%;height:1px;background:var(--line-strong)}
+.stage:first-child::before{display:none}
+.signal{display:flex;justify-content:center;margin:14px 0 30px}
+.signal span{font-size:12.5px;padding:4px 13px;border-radius:999px;background:var(--fact-bg);color:var(--fact-fg)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:14px}
+.card h3{font-size:14px;font-weight:500;margin-bottom:10px}
+.card p{font-size:14px;line-height:1.75}
+.path{display:flex;gap:12px;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.path:last-of-type{border-bottom:none}
+.path .m{font-family:var(--mono);font-size:11.5px;color:var(--mute);min-width:118px}
+.path .r{flex:1}
+.conf{font-family:var(--mono);font-size:11px;padding:1px 9px;border-radius:999px;border:1px solid var(--line);color:var(--sub)}
+.conf.hi{background:var(--accent-tint);border-color:transparent;color:var(--accent)}
+.match-note{font-size:13px;color:var(--sub);margin-top:12px}
+.tickers{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;align-items:center}
+.ticker{font-family:var(--mono);font-size:12px;padding:3px 10px;border-radius:999px;border:1px solid var(--line)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.dir-line{display:flex;gap:8px;align-items:baseline;font-size:14px;margin-bottom:8px}
+.dir-line .arrow{color:var(--pos);font-weight:500}
+.basis{font-size:12.5px;color:var(--sub);margin-bottom:12px}
+.tier-note{display:none;margin-top:10px;font-size:12.5px;color:var(--sub);border-left:2px solid var(--line-strong);padding-left:10px}
+.tier-note.open{display:block}
+.watch-row{display:flex;gap:10px;font-size:13.5px;padding:4px 0}
+.watch-row .w{font-family:var(--mono);font-size:12px;color:var(--mute);min-width:92px;padding-top:1px}
+
+footer.page{border-top:1px solid var(--line);margin-top:36px;padding:18px 0 40px;font-size:12px;color:var(--mute);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+details.about{margin:30px 0 0;border:1px solid var(--line);border-radius:12px;padding:14px 18px;background:var(--card)}
+details.about summary{cursor:pointer;font-size:13.5px;font-weight:500}
+details.about div{font-size:13px;color:var(--sub);margin-top:10px;line-height:1.8}
+</style>
+
+<div class="demo-strip" data-i18n="strip">Concept mockup · <span class="mono">sample data</span> · not a live service — Seoul Economic Daily internal review</div>
+
+<div class="wrap">
+
+<header class="site">
+  <div class="wordmark">K-Legis<span class="tag" data-i18n="tag">policy intelligence on the Korean National Assembly</span></div>
+  <div class="hdr-ctrls">
+    <div class="langseg" role="group" aria-label="언어">
+      <button type="button" id="lang-en" onclick="setLang('en')" aria-pressed="false">EN</button>
+      <button type="button" id="lang-ko" class="on" onclick="setLang('ko')" aria-pressed="true">KO</button>
+    </div>
+    <button type="button" class="thbtn" id="themeBtn" onclick="toggleTheme()" aria-label="다크 모드로 전환" aria-pressed="false">☾ <span id="themeLbl">다크</span></button>
+  </div>
+</header>
+
+<section class="screen" id="entry">
+  <div class="eyebrow" data-i18n="eyebrow">Ontology graph · demo period Nov 2025</div>
+  <h1 data-i18n="h1">Three hops from a bill to your portfolio</h1>
+  <p class="lede" data-i18n="lede">The knowledge graph is the product. Ring 1 is what a bill directly touches, ring 2 is its legislative context, ring 3 is the listed companies it reaches — tickers, direction and confidence on the node itself. Click anything to see the exact path and its provenance.</p>
+
+  <div class="gcontrols">
+    <div class="seg" role="group" aria-label="Graph anchor">
+      <button id="vw-bill" class="on" onclick="setView('bill')"><span data-i18n="vwBill">Bill view</span><span class="k">§91-19</span></button>
+      <button id="vw-co" onclick="setView('co')"><span data-i18n="vwCo">Ticker view</span><span class="k">005930</span></button>
+    </div>
+    <div class="depthset" role="group" aria-label="Graph depth">
+      <span class="lbl" data-i18n="depthLbl">Depth</span>
+      <button class="dchip" id="d1" onclick="setDepth(1)" data-i18n="d1">1 · direct</button>
+      <button class="dchip" id="d2" onclick="setDepth(2)" data-i18n="d2">2 · context</button>
+      <button class="dchip on" id="d3" onclick="setDepth(3)" data-i18n="d3">3 · market</button>
+    </div>
+    <span class="gcount" id="gcount"></span>
+  </div>
+
+  <div class="gwrap"><svg id="graph" viewBox="0 0 1180 720" role="img" aria-label="Ontology graph: bill to market in three depth rings"></svg></div>
+
+  <div class="glegend">
+    <span><span class="sw" style="background:var(--ink)"></span><span data-i18n="lgBill">Bill</span></span>
+    <span><span class="sw" style="background:var(--n-stat)"></span><span data-i18n="lgStat">Statute · decree</span></span>
+    <span><span class="sw" style="background:var(--n-proc)"></span><span data-i18n="lgProc">Assembly process</span></span>
+    <span><span class="sw" style="background:var(--n-data)"></span><span data-i18n="lgData">Data · criteria</span></span>
+    <span><span class="sw dashed"></span><span data-i18n="lgCtx">Derived context</span></span>
+    <span><span class="sw" style="background:var(--card);border:1px solid var(--line-strong)"></span><span data-i18n="lgCo">Company</span> <span style="color:var(--pos)">▲</span>/<span style="color:var(--neg)">▼</span></span>
+    <span class="edge-key" data-i18n="lgEdge">— documented · - - model-inferred (est.)</span>
+  </div>
+
+  <div class="trace" id="trace" aria-live="polite">
+    <p class="hint" data-i18n="hint">Click any node — the panel shows the path back to the anchor, hop by hop, with provenance on every claim.</p>
+  </div>
+
+  <div class="rail">
+    <div class="rtitle" id="railtitle"></div>
+    <div class="chips" id="railchips"></div>
+  </div>
+
+  <div class="pulse">
+    <span data-i18n="p1"><b>47</b> bills moved this month</span>
+    <span data-i18n="p2"><b>1,412</b> listed companies touched</span>
+    <span data-i18n="p3"><b>5</b> enforcement dates ahead</span>
+    <span class="provenance sample">sample</span>
+  </div>
+
+  <div class="watch">
+    <div class="eyebrow" data-i18n="wEyebrow">Editors' three to watch</div>
+    <div class="watch-item">
+      <span class="no">01</span><span class="nm" data-i18n="w1nm">Dividend tax</span>
+      <span class="why" data-i18n="w1why">Rate deal struck Nov 28 <span class="provenance fact">fact</span> — ≈370 high-payout names matched; plenary expected within days. <span class="provenance est">est.</span></span>
+      <button class="btn" onclick="openBrief()" data-i18n="wBrief">Brief →</button>
+    </div>
+    <div class="watch-item">
+      <span class="no">02</span><span class="nm" data-i18n="w2nm">Semiconductor act</span>
+      <span class="why" data-i18n="w2why">R&amp;D working-hour carve-out back on the committee table — see it from the ticker side. <span class="provenance sample">sample</span></span>
+      <button class="btn" onclick="setView('co')" data-i18n="wGraph">Graph →</button>
+    </div>
+    <div class="watch-item">
+      <span class="no">03</span><span class="nm" data-i18n="w3nm">Digital asset act</span>
+      <span class="why" data-i18n="w3why">Framework and stablecoin licensing debate resumes in the policy committee. <span class="provenance sample">sample</span></span>
+      <button class="btn" onclick="openBrief()" data-i18n="wBrief2">Brief →</button>
+    </div>
+  </div>
+
+  <p class="tagline" data-i18n="tagline">Every claim on every page carries its provenance: <span class="provenance fact">fact</span> source-verified &nbsp;·&nbsp; <span class="provenance est">est.</span> model estimate &nbsp;·&nbsp; <span class="provenance sample">sample</span> demo placeholder</p>
+</section>
+
+<section class="screen wrap-narrow" id="brief" style="padding-left:0;padding-right:0">
+  <button class="back" onclick="closeBrief()" data-i18n="back">← Back to the graph</button>
+
+  <div class="snapshot"><span data-i18n="snap1">Demo snapshot</span><span class="mono">Nov 30, 2025</span><span data-i18n="snap2">— probability figures and ticker chips are placeholders; dated items are sourced.</span></div>
+
+  <div class="crumb" data-i18n="crumb">Bills / Tax and capital markets</div>
+  <h1 data-i18n="bh1">Separate taxation of dividend income from high-payout listed companies</h1>
+  <div class="kr-title" data-i18n="bkr">조세특례제한법 일부개정법률안 — Restriction of Special Taxation Act, new Art. 91-19</div>
+  <div class="badges">
+    <span class="badge theme-badge" data-i18n="bg1">Theme · governance and value-up</span>
+    <span class="badge" data-i18n="bg2">Committee · strategy and finance</span>
+    <span class="badge" data-i18n="bg3">Status · in committee</span>
+  </div>
+
+  <div class="pipe" aria-label="Legislative pipeline">
+    <div class="stage done"><div class="dot"></div><div class="n" data-i18n="st1">Proposed</div><div class="s">2025</div></div>
+    <div class="stage now"><div class="dot"></div><div class="n" data-i18n="st2">Committee</div><div class="s" data-i18n="st2s">rate deal Nov 28<br>fact</div></div>
+    <div class="stage future"><div class="dot"></div><div class="n" data-i18n="st3">Judiciary</div><div class="s">&nbsp;</div></div>
+    <div class="stage future"><div class="dot"></div><div class="n" data-i18n="st4">Plenary</div><div class="s" data-i18n="st4s">early Dec · est.</div></div>
+    <div class="stage future"><div class="dot"></div><div class="n" data-i18n="st5">In force</div><div class="s" data-i18n="st5s">Jan 1, 2026 · sched.</div></div>
+  </div>
+  <div class="signal"><span data-i18n="sig">Passage signal: high — <em>sample estimate</em></span></div>
+
+  <div class="card">
+    <h3 data-i18n="c1h">What it does</h3>
+    <p data-i18n="c1p">Lets investors elect flat separate taxation of 14–30% by bracket on cash dividends from qualifying high-payout listed companies, instead of aggregation at up to 45%. <span class="provenance fact">fact</span>
+    Applies to dividends received from Jan 1, 2026 through 2028; opt-in at filing; ETFs, funds and REITs excluded. <span class="provenance fact">fact</span>
+    Read as a Korea-discount measure: it raises the controlling shareholder's incentive to pay out. <span class="provenance est">est.</span></p>
+  </div>
+
+  <div class="card">
+    <h3 data-i18n="c2h">Who it touches — three mapping paths</h3>
+    <div class="path"><span class="m">statute join</span><span class="r" data-i18n="c2r1">Tax act → all listed companies</span><span class="conf" data-i18n="c2c1">broad</span></div>
+    <div class="path"><span class="m">named in docs</span><span class="r" data-i18n="c2r2">No companies named in bill text or committee review report</span><span class="conf" data-i18n="c2c2">none</span></div>
+    <div class="path"><span class="m">criteria match</span><span class="r" data-i18n="c2r3">Payout ratio ≥ 40% (or ≥ 25% and rising), computed from DART dividend filings</span><span class="conf hi" data-i18n="c2c3">high</span></div>
+    <div class="match-note" data-i18n="c2note">≈ 370 companies matched — about 15% of listed names, government estimate. <span class="provenance fact">fact</span></div>
+    <div class="tickers">
+      <span class="ticker">KB Financial 105560</span>
+      <span class="ticker">Shinhan 055550</span>
+      <span class="ticker">Hana 086790</span>
+      <span class="ticker">+367 more</span>
+      <span class="provenance sample">sample</span>
+    </div>
+  </div>
+
+  <div class="two">
+    <div class="card">
+      <h3 data-i18n="c3h">Direction</h3>
+      <div class="dir-line"><span class="arrow">▲</span><span data-i18n="c3d">Positive for high-payout financials and holding companies</span><span class="provenance est">est.</span></div>
+      <div class="basis" data-i18n="c3b">Basis: committee review report §3 (Korean)</div>
+      <button class="btn" onclick="toggleTier(this)" data-i18n="c3btn">Translate this section</button>
+      <div class="tier-note" data-i18n="c3note">Tier 2 on-demand translation — in production this button sends the cited passage to the translation pipeline and caches the result. Nothing is pre-translated.</div>
+    </div>
+    <div class="card">
+      <h3 data-i18n="c4h">Watch next</h3>
+      <div class="watch-row"><span class="w">Dec 31, 2028</span><span data-i18n="c4r1">Sunset unless extended <span class="provenance fact">fact</span></span></div>
+      <div class="watch-row"><span class="w" data-i18n="c4w2">Decree</span><span data-i18n="c4r2">Payout-ratio calculation details set by enforcement decree <span class="provenance fact">fact</span></span></div>
+    </div>
+  </div>
+
+  <details class="about">
+    <summary>이 컨셉에 대하여 (한국어)</summary>
+    <div>
+      국회 열린데이터 기반 온톨로지를 외국인 투자자 관점으로 재편한 화면 시안입니다.
+      핵심 설계 — ① 뎁스 1(직접 관계) · 2(입법 맥락) · 3(종목 매핑) 3중 동심원 온톨로지 그래프,
+      ② 법안 중심 뷰 ↔ 종목(005930) 중심 뷰 양방향 전환, ③ 노드 클릭 시 앵커까지의 홉 경로와 출처(fact / est.) 추적,
+      ④ EN/KO 다국어 및 다크/라이트 테마 전환. 노드 배치·통과 확률·종목 구성은 목업용 샘플이며, 날짜·요건 등 사실 항목은 검증된 값입니다.
+    </div>
+  </details>
+</section>
+
+<footer class="page">
+  <span data-i18n="foot"><span class="provenance fact">fact</span> source-verified · <span class="provenance est">est.</span> model estimate · Information only, not investment advice</span>
+  <span>Sources: National Assembly Open API · DART · MOLEG</span>
+</footer>
+
+</div>
+
+<script>
+/* ---------- i18n ---------- */
+const I18N = {
+en: {
+  strip:'Concept mockup · <span class="mono">sample data</span> · not a live service — Seoul Economic Daily internal review',
+  tag:'policy intelligence on the Korean National Assembly',
+  eyebrow:'Ontology graph · demo period Nov 2025',
+  h1:'Three hops from a bill to your portfolio',
+  lede:'The knowledge graph is the product. Ring 1 is what a bill directly touches, ring 2 is its legislative context, ring 3 is the listed companies it reaches — tickers, direction and confidence on the node itself. Click anything to see the exact path and its provenance.',
+  vwBill:'Bill view', vwCo:'Ticker view', depthLbl:'Depth',
+  d1:'1 · direct', d2:'2 · context', d3:'3 · market',
+  lgBill:'Bill', lgStat:'Statute · decree', lgProc:'Assembly process', lgData:'Data · criteria', lgCtx:'Derived context', lgCo:'Company',
+  lgEdge:'— documented · - - model-inferred (est.)',
+  hint:'Click any node — the panel shows the path back to the anchor, hop by hop, with provenance on every claim.',
+  p1:'<b>47</b> bills moved this month', p2:'<b>1,412</b> listed companies touched', p3:'<b>5</b> enforcement dates ahead',
+  wEyebrow:"Editors' three to watch",
+  w1nm:'Dividend tax', w2nm:'Semiconductor act', w3nm:'Digital asset act',
+  w1why:'Rate deal struck Nov 28 <span class="provenance fact">fact</span> — ≈370 high-payout names matched; plenary expected within days. <span class="provenance est">est.</span>',
+  w2why:'R&amp;D working-hour carve-out back on the committee table — see it from the ticker side. <span class="provenance sample">sample</span>',
+  w3why:'Framework and stablecoin licensing debate resumes in the policy committee. <span class="provenance sample">sample</span>',
+  wBrief:'Brief →', wBrief2:'Brief →', wGraph:'Graph →',
+  tagline:'Every claim on every page carries its provenance: <span class="provenance fact">fact</span> source-verified &nbsp;·&nbsp; <span class="provenance est">est.</span> model estimate &nbsp;·&nbsp; <span class="provenance sample">sample</span> demo placeholder',
+  back:'← Back to the graph',
+  snap1:'Demo snapshot', snap2:'— probability figures and ticker chips are placeholders; dated items are sourced.',
+  crumb:'Bills / Tax and capital markets',
+  bh1:'Separate taxation of dividend income from high-payout listed companies',
+  bkr:'조세특례제한법 일부개정법률안 — Restriction of Special Taxation Act, new Art. 91-19',
+  bg1:'Theme · governance and value-up', bg2:'Committee · strategy and finance', bg3:'Status · in committee',
+  st1:'Proposed', st2:'Committee', st2s:'rate deal Nov 28<br>fact', st3:'Judiciary', st4:'Plenary', st4s:'early Dec · est.', st5:'In force', st5s:'Jan 1, 2026 · sched.',
+  sig:'Passage signal: high — <em>sample estimate</em>',
+  c1h:'What it does',
+  c1p:'Lets investors elect flat separate taxation of 14–30% by bracket on cash dividends from qualifying high-payout listed companies, instead of aggregation at up to 45%. <span class="provenance fact">fact</span> Applies to dividends received from Jan 1, 2026 through 2028; opt-in at filing; ETFs, funds and REITs excluded. <span class="provenance fact">fact</span> Read as a Korea-discount measure: it raises the controlling shareholder\'s incentive to pay out. <span class="provenance est">est.</span>',
+  c2h:'Who it touches — three mapping paths',
+  c2r1:'Tax act → all listed companies', c2c1:'broad',
+  c2r2:'No companies named in bill text or committee review report', c2c2:'none',
+  c2r3:'Payout ratio ≥ 40% (or ≥ 25% and rising), computed from DART dividend filings', c2c3:'high',
+  c2note:'≈ 370 companies matched — about 15% of listed names, government estimate. <span class="provenance fact">fact</span>',
+  c3h:'Direction', c3d:'Positive for high-payout financials and holding companies',
+  c3b:'Basis: committee review report §3 (Korean)', c3btn:'Translate this section',
+  c3note:'Tier 2 on-demand translation — in production this button sends the cited passage to the translation pipeline and caches the result. Nothing is pre-translated.',
+  c4h:'Watch next', c4w2:'Decree',
+  c4r1:'Sunset unless extended <span class="provenance fact">fact</span>',
+  c4r2:'Payout-ratio calculation details set by enforcement decree <span class="provenance fact">fact</span>',
+  foot:'<span class="provenance fact">fact</span> source-verified · <span class="provenance est">est.</span> model estimate · Information only, not investment advice',
+  themeDark:'Dark', themeLight:'Light', cta:'Open the full brief →',
+  conf:'confidence', dirUp:'▲ positive', dirDn:'▼ negative'
+},
+ko: {
+  strip:'컨셉 목업 · <span class="mono">샘플 데이터</span> · 실서비스 아님 — 서울경제신문 내부 검토용',
+  tag:'국회 입법 데이터 기반 정책 인텔리전스',
+  eyebrow:'온톨로지 그래프 · 데모 기간 2025년 11월',
+  h1:'법안에서 포트폴리오까지, 세 홉이면 닿습니다',
+  lede:'지식그래프 자체가 상품입니다. 1번 링은 법안이 직접 닿는 대상, 2번 링은 입법 맥락, 3번 링은 법안이 도달하는 상장사 — 티커·방향·확신도가 노드에 바로 표시됩니다. 무엇이든 클릭하면 정확한 경로와 출처가 열립니다.',
+  vwBill:'법안 뷰', vwCo:'종목 뷰', depthLbl:'뎁스',
+  d1:'1 · 직접', d2:'2 · 맥락', d3:'3 · 시장',
+  lgBill:'법안', lgStat:'법률 · 시행령', lgProc:'입법 프로세스', lgData:'데이터 · 요건', lgCtx:'파생 맥락', lgCo:'종목',
+  lgEdge:'— 문서 확인 관계 · - - 모델 추론 (est.)',
+  hint:'노드를 클릭하세요 — 앵커까지의 경로가 홉 단위로, 각 주장의 출처와 함께 표시됩니다.',
+  p1:'이번 달 움직인 법안 <b>47</b>건', p2:'영향권 상장사 <b>1,412</b>곳', p3:'예정된 시행일 <b>5</b>건',
+  wEyebrow:'에디터 픽 — 주목할 3건',
+  w1nm:'배당 분리과세', w2nm:'반도체특별법', w3nm:'디지털자산기본법',
+  w1why:'11월 28일 세율 합의 <span class="provenance fact">fact</span> — 고배당 ≈370개 종목 매칭, 수일 내 본회의 예상. <span class="provenance est">est.</span>',
+  w2why:'R&amp;D 근로시간 특례가 다시 위원회 안건으로 — 종목 뷰에서 확인하세요. <span class="provenance sample">sample</span>',
+  w3why:'제도 프레임워크·스테이블코인 인가 논의가 정무위에서 재개됩니다. <span class="provenance sample">sample</span>',
+  wBrief:'브리프 →', wBrief2:'브리프 →', wGraph:'그래프 →',
+  tagline:'모든 페이지의 모든 주장에 출처 라벨이 붙습니다: <span class="provenance fact">fact</span> 원문 검증 &nbsp;·&nbsp; <span class="provenance est">est.</span> 모델 추정 &nbsp;·&nbsp; <span class="provenance sample">sample</span> 데모 플레이스홀더',
+  back:'← 그래프로 돌아가기',
+  snap1:'데모 스냅샷', snap2:'— 확률 수치와 종목 칩은 플레이스홀더이며, 날짜가 붙은 항목은 출처가 있습니다.',
+  crumb:'법안 / 조세·자본시장',
+  bh1:'고배당 상장사 배당소득 분리과세',
+  bkr:'Restriction of Special Taxation Act, new Art. 91-19 — 조세특례제한법 일부개정법률안',
+  bg1:'테마 · 지배구조·밸류업', bg2:'소관 · 기획재정위원회', bg3:'상태 · 위원회 심사 중',
+  st1:'발의', st2:'위원회', st2s:'11/28 세율 합의<br>fact', st3:'법사위', st4:'본회의', st4s:'12월 초 · est.', st5:'시행', st5s:'2026.1.1 · 예정',
+  sig:'통과 시그널: 높음 — <em>샘플 추정</em>',
+  c1h:'무엇을 하는 법안인가',
+  c1p:'요건을 충족하는 고배당 상장사의 현금배당에 대해 최고 45% 종합과세 대신 구간별 14–30% 분리과세를 선택할 수 있게 합니다. <span class="provenance fact">fact</span> 2026년 1월 1일부터 2028년까지 수령한 배당에 적용, 신고 시 선택, ETF·펀드·리츠는 제외. <span class="provenance fact">fact</span> 코리아 디스카운트 해소 법안으로 읽힙니다 — 지배주주의 배당 확대 유인을 키웁니다. <span class="provenance est">est.</span>',
+  c2h:'누구에게 닿는가 — 3가지 매핑 경로',
+  c2r1:'세법 → 전체 상장사', c2c1:'광역',
+  c2r2:'법안 원문·검토보고서에 명시된 기업 없음', c2c2:'없음',
+  c2r3:'배당성향 ≥ 40% (또는 ≥ 25% 상승 추세), DART 배당 공시로 산출', c2c3:'높음',
+  c2note:'≈ 370개사 매칭 — 상장사의 약 15%, 정부 추산. <span class="provenance fact">fact</span>',
+  c3h:'방향성', c3d:'고배당 금융·지주회사에 긍정적',
+  c3b:'근거: 위원회 검토보고서 §3 (국문)', c3btn:'이 섹션 번역하기',
+  c3note:'2단계 온디맨드 번역 — 실서비스에서는 이 버튼이 인용 구절을 번역 파이프라인으로 보내고 결과를 캐시합니다. 사전 번역은 없습니다.',
+  c4h:'다음 관전 포인트', c4w2:'시행령',
+  c4r1:'연장 없으면 일몰 <span class="provenance fact">fact</span>',
+  c4r2:'배당성향 산정 세부 기준은 시행령에서 확정 <span class="provenance fact">fact</span>',
+  foot:'<span class="provenance fact">fact</span> 원문 검증 · <span class="provenance est">est.</span> 모델 추정 · 정보 제공 목적이며 투자 자문이 아닙니다',
+  themeDark:'다크', themeLight:'라이트', cta:'전체 브리프 열기 →',
+  conf:'확신도', dirUp:'▲ 긍정적', dirDn:'▼ 부정적'
+}
+};
+
+const UI_EXTRA = {
+en: {
+  title:'K-Legis — concept mockup (sample data)',
+  languageAria:'Language', chooseEn:'Switch to English', chooseKo:'Switch to Korean',
+  graphAnchorAria:'Graph anchor', graphDepthAria:'Graph depth',
+  graphAria:'Ontology graph: bill to market in three depth rings', pipelineAria:'Legislative pipeline',
+  themeToDark:'Switch to dark mode', themeToLight:'Switch to light mode',
+  provenance:{fact:'fact', est:'est.', sample:'sample'},
+  confidence:{high:'high', mid:'mid', low:'low'},
+  snapshotDate:'Nov 30, 2025', sunsetDate:'Dec 31, 2028',
+  pathMethods:['statute join','named in docs','criteria match'],
+  tickers:['KB Financial 105560','Shinhan 055550','Hana 086790','+367 more'],
+  aboutSummary:'About this concept',
+  aboutBody:'This concept reorganizes a National Assembly open-data ontology for global investors. Its core design combines: <b>a three-ring ontology graph</b> for direct relationships, legislative context and ticker mapping; bidirectional bill/ticker views; hop-by-hop provenance tracing; and instant EN/KO and light/dark controls. Node positions, passage probabilities and ticker composition are sample data; dated requirements are source-verified.',
+  sources:'Sources: National Assembly Open API · DART · MOLEG'
+},
+ko: {
+  title:'K-Legis — 한국어 콘셉트 목업(예시 데이터)',
+  languageAria:'언어', chooseEn:'영문으로 전환', chooseKo:'한글로 전환',
+  graphAnchorAria:'그래프 기준', graphDepthAria:'그래프 단계',
+  graphAria:'온톨로지 그래프: 법안에서 시장까지 세 단계 연결', pipelineAria:'입법 절차',
+  themeToDark:'다크 모드로 전환', themeToLight:'라이트 모드로 전환',
+  provenance:{fact:'사실', est:'추정', sample:'예시'},
+  confidence:{high:'높음', mid:'보통', low:'낮음'},
+  snapshotDate:'2025년 11월 30일', sunsetDate:'2028년 12월 31일',
+  pathMethods:['법률 연결','문서 명시','요건 매칭'],
+  tickers:['KB금융 105560','신한지주 055550','하나금융지주 086790','+367개 더보기'],
+  aboutSummary:'이 콘셉트에 대하여',
+  aboutBody:'국회 열린데이터 기반 온톨로지를 외국인 투자자 관점으로 재편한 화면 시안입니다. 핵심 설계는 <b>직접 관계·입법 맥락·종목 매핑의 3중 동심원 온톨로지 그래프</b>, 법안 중심 보기와 종목 중심 보기의 양방향 전환, 앵커까지의 단계별 출처 추적, 즉시 반영되는 EN/KO 및 라이트/다크 전환입니다. 노드 배치·통과 확률·종목 구성은 목업용 예시이며 날짜·요건 등 사실 항목은 검증된 값입니다.',
+  sources:'출처: 국회 열린 API · DART · MOLEG'
+}
+};
+
+/* ---------- graph data (hand-laid radial layout, viewBox 1180x720) ---------- */
+const P = (s)=>`<span class="provenance ${s}">${s==='est'?'est.':s}</span>`;
+
+const VIEWS = {
+bill: {
+  counts:{en:"1 bill → 6 direct → 7 context → ≈370 matched names", ko:"법안 1건 → 직접 6 → 맥락 7 → 매칭 종목 ≈370"},
+  railTitle:{en:"Matched names — always on screen · sample", ko:"매칭 종목 — 화면 상시 노출 · sample"},
+  rail: [
+    {id:'kb',  html:'<span class="tk">105560</span>KB Financial <span class="up">▲</span><span class="cf">high</span>'},
+    {id:'shin',html:'<span class="tk">055550</span>Shinhan FG <span class="up">▲</span><span class="cf">high</span>'},
+    {id:'hana',html:'<span class="tk">086790</span>Hana FG <span class="up">▲</span><span class="cf">high</span>'},
+    {id:'sfm', html:'<span class="tk">000810</span>Samsung F&amp;M <span class="up">▲</span><span class="cf">mid</span>'},
+    {id:'ktg', html:'<span class="tk">033780</span>KT&amp;G <span class="up">▲</span><span class="cf">mid</span>'},
+    {id:'hmc', html:'<span class="tk">005380</span>Hyundai Motor <span class="up">▲</span><span class="cf">low</span>'},
+    {id:'more',html:'+364 more'}
+  ],
+  badges: [[691,439],[800,506],[899,570]],
+  nodes: [
+    {id:'c',    d:0,x:560,y:365,w:176,t:'billc',  main:'Dividend tax · §91-19', sub:'배당소득 분리과세 · in committee'},
+    {id:'stat', d:1,x:375,y:365,w:172,t:'statute',main:'Special Taxation Act',  sub:'조세특례제한법 · fact'},
+    {id:'cmte', d:1,x:429,y:291,w:186,t:'proc',   main:'Strategy & Finance Cmte',sub:'기획재정위 · reviewing'},
+    {id:'spon', d:1,x:441,y:445,w:130,t:'proc',   main:'13 sponsors',           sub:'여야 공동발의 · fact'},
+    {id:'them', d:1,x:560,y:260,w:168,t:'ctx',    main:'Value-up · governance', sub:'밸류업 테마 · est.'},
+    {id:'evt',  d:1,x:585,y:478,w:158,t:'proc',   main:'Plenary · early Dec',   sub:'본회의 상정 예정 · est.'},
+    {id:'crit', d:1,x:728,y:365,w:144,t:'data',   main:'Payout ≥ 40% rule',     sub:'배당성향 요건 · fact'},
+    {id:'decr', d:2,x:198,y:365,w:160,t:'statute',main:'Enforcement decree',    sub:'시행령 · 기재부 · pending'},
+    {id:'bil3', d:2,x:307,y:231,w:172,t:'bill',   main:'Inheritance tax reform',sub:'상속세제 · same cmte'},
+    {id:'bil2', d:2,x:472,y:172,w:186,t:'bill',   main:'Commercial Act amendment',sub:'상법 개정 · same theme'},
+    {id:'vote', d:2,x:307,y:499,w:168,t:'proc',   main:'Rate deal · Nov 28',    sub:'여야 합의 · fact'},
+    {id:'dart', d:2,x:700,y:545,w:180,t:'data',   main:'DART dividend filings', sub:'배당 공시 12,400건 · fact'},
+    {id:'sect', d:2,x:888,y:365,w:160,t:'ctx',    main:'Banks & holdcos',       sub:'≈370 matched · 15% of list'},
+    {id:'fx',   d:2,x:860,y:470,w:170,t:'ctx',    main:'Foreign ownership 38%', sub:'외국인 보유 평균 · est.'},
+    {id:'kb',   d:3,x:1075,y:200,w:186,t:'co',dir:'up',main:'KB Financial ▲',   sub:'105560 · payout 41% · high'},
+    {id:'shin', d:3,x:1075,y:266,w:186,t:'co',dir:'up',main:'Shinhan FG ▲',     sub:'055550 · payout 40% · high'},
+    {id:'hana', d:3,x:1075,y:332,w:186,t:'co',dir:'up',main:'Hana FG ▲',        sub:'086790 · payout 43% · high'},
+    {id:'sfm',  d:3,x:1075,y:398,w:186,t:'co',dir:'up',main:'Samsung F&M ▲',    sub:'000810 · payout 37% · mid'},
+    {id:'ktg',  d:3,x:1075,y:464,w:186,t:'co',dir:'up',main:'KT&G ▲',           sub:'033780 · payout 58% · mid'},
+    {id:'hmc',  d:3,x:1075,y:530,w:186,t:'co',dir:'up',main:'Hyundai Motor ▲',  sub:'005380 · payout 27%↑ · low'},
+    {id:'more', d:3,x:1075,y:596,w:186,t:'ctx',  main:'+364 more',              sub:'전체 매칭 리스트 · sample'}
+  ],
+  edges: [
+    {a:'c',b:'stat', label:'AMENDS',        lx:466,ly:336},
+    {a:'c',b:'cmte', label:'REVIEWED BY',   lx:505,ly:322},
+    {a:'c',b:'spon', label:'PROPOSED BY',   lx:508,ly:412},
+    {a:'c',b:'them', label:'THEME',         lx:584,ly:316, dash:1},
+    {a:'c',b:'evt',  label:'SCHEDULED',     lx:614,ly:428, dash:1},
+    {a:'c',b:'crit', label:'DEFINES',       lx:652,ly:338},
+    {a:'stat',b:'decr',label:'DELEGATES',   lx:288,ly:336},
+    {a:'cmte',b:'bil3',label:'ALSO BEFORE', lx:368,ly:262},
+    {a:'them',b:'bil2',label:'SAME THEME',  lx:516,ly:212, dash:1},
+    {a:'spon',b:'vote',label:'VOTE SIGNAL', lx:374,ly:474},
+    {a:'crit',b:'dart',label:'COMPUTED FROM',lx:714,ly:462},
+    {a:'crit',b:'sect',label:'MATCHES ≈370 · FACT',lx:806,ly:338, em:1},
+    {a:'sect',b:'fx',  label:'CONTEXT',     lx:912,ly:424, dash:1}
+  ],
+  arcs: [
+    {a:'bil2',b:'sect',cx:720,cy:30,dash:1,label:'ALSO TOUCHES',lx:700,ly:136}
+  ],
+  column: {from:'sect', spineX:977, items:['kb','shin','hana','sfm','ktg','hmc','more']}
+},
+co: {
+  counts:{en:"1 ticker → 5 bills → 4 committees → peers & supply chain", ko:"종목 1개 → 법안 5건 → 위원회 4곳 → 피어·공급망"},
+  railTitle:{en:"Exposure of 005930 — bills touching it today · sample", ko:"005930 익스포저 — 오늘 걸린 법안 · sample"},
+  rail: [
+    {id:'semi',html:'Semiconductor Act <span class="up">▲</span><span class="cf">named · fact</span>'},
+    {id:'kchp',html:'K-chips credit <span class="up">▲</span><span class="cf">criteria</span>'},
+    {id:'srac',html:'Serious Accidents <span class="dn">▼</span><span class="cf">statute join</span>'},
+    {id:'lbr', html:'52-hour rules <span class="dn">▼</span><span class="cf">est.</span>'},
+    {id:'divw',html:'Dividend tax <span class="cf">watch</span>'}
+  ],
+  badges: [[700,432],[868,450],[1029,425]],
+  nodes: [
+    {id:'c',   d:0,x:560,y:365,w:182,t:'billc',main:'Samsung Electronics',      sub:'005930 · KOSPI'},
+    {id:'semi',d:1,x:375,y:365,w:178,t:'bill', main:'Semiconductor Act ▲',dir:'up',sub:'반도체특별법 · named · fact'},
+    {id:'kchp',d:1,x:408,y:305,w:150,t:'bill', main:'K-chips credit ▲',dir:'up', sub:'조특법 R&D 세액공제'},
+    {id:'divw',d:1,x:575,y:255,w:170,t:'bill', main:'Dividend tax · watch',     sub:'§91-19 · payout 기준 관찰'},
+    {id:'srac',d:1,x:425,y:433,w:178,t:'bill', main:'Serious Accidents ▼',dir:'dn',sub:'중대재해처벌법 · joined'},
+    {id:'lbr', d:1,x:608,y:466,w:170,t:'bill', main:'52-hour rules ▼',dir:'dn', sub:'근로시간 개정안 3건 · est.'},
+    {id:'ind', d:2,x:233,y:310,w:180,t:'proc', main:'Industry & Energy Cmte',   sub:'산자위 · 반도체법 심사'},
+    {id:'cls', d:2,x:250,y:485,w:180,t:'data', main:'R&D hour carve-out',       sub:'특별연장근로 특례 §7 · fact'},
+    {id:'fin', d:2,x:548,y:165,w:196,t:'proc', main:'Strategy & Finance Cmte',  sub:'기재위 · 세제 2건 계류'},
+    {id:'lab', d:2,x:400,y:542,w:196,t:'proc', main:'Environment & Labor Cmte', sub:'환노위 · 노동 4건'},
+    {id:'cal', d:2,x:780,y:510,w:170,t:'proc', main:'3 dates ahead',            sub:'본회의·시행일 캘린더'},
+    {id:'fxo', d:3,x:917,y:171,w:180,t:'ctx',  main:'Foreign ownership 52%',    sub:'외국인 보유 · fact'},
+    {id:'chp', d:3,x:875,y:112,w:170,t:'ctx',  main:'US CHIPS Act signal',      sub:'교차 신호 · est.'},
+    {id:'skh', d:3,x:1030,y:340,w:186,t:'co',dir:'up',main:'SK hynix ▲',        sub:'000660 · same 2 bills · peer'},
+    {id:'sup', d:3,x:976,y:510,w:186,t:'co',dir:'up',main:'Suppliers · 42 names ▲',sub:'소부장 공급망 · est.'}
+  ],
+  edges: [
+    {a:'c',b:'semi', label:'NAMED IN',      lx:466,ly:336},
+    {a:'c',b:'kchp', label:'CRITERIA',      lx:492,ly:332},
+    {a:'c',b:'divw', label:'WATCH',         lx:608,ly:308, dash:1},
+    {a:'c',b:'srac', label:'STATUTE JOIN',  lx:500,ly:404},
+    {a:'c',b:'lbr',  label:'STATUTE JOIN',  lx:646,ly:420, dash:1},
+    {a:'semi',b:'ind',label:'REVIEWED BY',  lx:300,ly:338},
+    {a:'semi',b:'cls',label:'KEY CLAUSE',   lx:298,ly:448},
+    {a:'kchp',b:'fin',label:'ALSO BEFORE',  lx:450,ly:238},
+    {a:'divw',b:'fin'},
+    {a:'srac',b:'lab',label:'REVIEWED BY',  lx:448,ly:494},
+    {a:'lbr',b:'lab'},
+    {a:'c',b:'cal',  label:'WATCHES',       lx:720,ly:462, dash:1},
+    {a:'c',b:'fxo',  label:'OWNERSHIP',     lx:756,ly:262},
+    {a:'c',b:'chp',  label:'CROSS-SIGNAL',  lx:712,ly:240, dash:1},
+    {a:'c',b:'skh',  label:'PEER · SAME BILLS',lx:800,ly:344, dash:1},
+    {a:'c',b:'sup',  label:'SUPPLY CHAIN',  lx:800,ly:438, dash:1}
+  ],
+  arcs: [], column: null
+}
+};
+
+/* ---------- localized graph labels ---------- */
+const GRAPH_TEXT_KO = Object.freeze({
+  '<span class="tk">105560</span>KB Financial <span class="up">▲</span><span class="cf">high</span>':'<span class="tk">105560</span>KB금융 <span class="up">▲</span><span class="cf">높음</span>',
+  '<span class="tk">055550</span>Shinhan FG <span class="up">▲</span><span class="cf">high</span>':'<span class="tk">055550</span>신한지주 <span class="up">▲</span><span class="cf">높음</span>',
+  '<span class="tk">086790</span>Hana FG <span class="up">▲</span><span class="cf">high</span>':'<span class="tk">086790</span>하나금융지주 <span class="up">▲</span><span class="cf">높음</span>',
+  '<span class="tk">000810</span>Samsung F&amp;M <span class="up">▲</span><span class="cf">mid</span>':'<span class="tk">000810</span>삼성화재 <span class="up">▲</span><span class="cf">보통</span>',
+  '<span class="tk">033780</span>KT&amp;G <span class="up">▲</span><span class="cf">mid</span>':'<span class="tk">033780</span>KT&amp;G <span class="up">▲</span><span class="cf">보통</span>',
+  '<span class="tk">005380</span>Hyundai Motor <span class="up">▲</span><span class="cf">low</span>':'<span class="tk">005380</span>현대차 <span class="up">▲</span><span class="cf">낮음</span>',
+  '+364 more':'+364개',
+  'Dividend tax · §91-19':'배당소득 과세 · §91-19',
+  '배당소득 분리과세 · in committee':'배당소득 분리과세 · 위원회 심사 중',
+  'Special Taxation Act':'조세특례제한법',
+  '조세특례제한법 · fact':'조세특례제한법 · 사실',
+  'Strategy & Finance Cmte':'기획재정위원회',
+  '기획재정위 · reviewing':'기재위 · 심사 중',
+  '13 sponsors':'공동발의 13인',
+  '여야 공동발의 · fact':'여야 공동발의 · 사실',
+  'Value-up · governance':'밸류업 · 지배구조',
+  '밸류업 테마 · est.':'밸류업 테마 · 추정',
+  'Plenary · early Dec':'본회의 · 12월 초',
+  '본회의 상정 예정 · est.':'본회의 상정 예정 · 추정',
+  'Payout ≥ 40% rule':'배당성향 ≥ 40%',
+  '배당성향 요건 · fact':'배당성향 요건 · 사실',
+  'Enforcement decree':'시행령',
+  '시행령 · 기재부 · pending':'시행령 · 기재부 · 예정',
+  'Inheritance tax reform':'상속세제 개편',
+  '상속세제 · same cmte':'상속세제 · 같은 위원회',
+  'Commercial Act amendment':'상법 개정안',
+  '상법 개정 · same theme':'상법 개정 · 같은 테마',
+  'Rate deal · Nov 28':'세율 합의 · 11월 28일',
+  '여야 합의 · fact':'여야 합의 · 사실',
+  'DART dividend filings':'DART 배당 공시',
+  '배당 공시 12,400건 · fact':'배당 공시 12,400건 · 사실',
+  'Banks & holdcos':'은행·지주사',
+  '≈370 matched · 15% of list':'≈370개 매칭 · 전체의 15%',
+  'Foreign ownership 38%':'외국인 보유율 38%',
+  '외국인 보유 평균 · est.':'외국인 평균 보유율 · 추정',
+  'KB Financial ▲':'KB금융 ▲',
+  '105560 · payout 41% · high':'105560 · 배당성향 41% · 높음',
+  'Shinhan FG ▲':'신한지주 ▲',
+  '055550 · payout 40% · high':'055550 · 배당성향 40% · 높음',
+  'Hana FG ▲':'하나금융지주 ▲',
+  '086790 · payout 43% · high':'086790 · 배당성향 43% · 높음',
+  'Samsung F&M ▲':'삼성화재 ▲',
+  '000810 · payout 37% · mid':'000810 · 배당성향 37% · 보통',
+  '033780 · payout 58% · mid':'033780 · 배당성향 58% · 보통',
+  'Hyundai Motor ▲':'현대차 ▲',
+  '005380 · payout 27%↑ · low':'005380 · 배당성향 27%↑ · 낮음',
+  '전체 매칭 리스트 · sample':'전체 매칭 목록 · 예시',
+  'Semiconductor Act <span class="up">▲</span><span class="cf">named · fact</span>':'반도체특별법 <span class="up">▲</span><span class="cf">명시 · 사실</span>',
+  'K-chips credit <span class="up">▲</span><span class="cf">criteria</span>':'K-칩스 세액공제 <span class="up">▲</span><span class="cf">요건</span>',
+  'Serious Accidents <span class="dn">▼</span><span class="cf">statute join</span>':'중대재해처벌법 <span class="dn">▼</span><span class="cf">법률 연결</span>',
+  '52-hour rules <span class="dn">▼</span><span class="cf">est.</span>':'52시간제 <span class="dn">▼</span><span class="cf">추정</span>',
+  'Dividend tax <span class="cf">watch</span>':'배당소득 과세 <span class="cf">관찰</span>',
+  'Samsung Electronics':'삼성전자',
+  'Semiconductor Act ▲':'반도체특별법 ▲',
+  '반도체특별법 · named · fact':'반도체특별법 · 명시 · 사실',
+  'K-chips credit ▲':'K-칩스 공제 ▲',
+  'Dividend tax · watch':'배당소득 과세 · 관찰',
+  '§91-19 · payout 기준 관찰':'§91-19 · 배당성향 기준 관찰',
+  'Serious Accidents ▼':'중대재해처벌법 ▼',
+  '중대재해처벌법 · joined':'중대재해처벌법 · 연결',
+  '52-hour rules ▼':'52시간제 ▼',
+  '근로시간 개정안 3건 · est.':'근로시간 개정안 3건 · 추정',
+  'Industry & Energy Cmte':'산자중기위',
+  'R&D hour carve-out':'R&D 근로시간 특례',
+  '특별연장근로 특례 §7 · fact':'특별연장근로 특례 §7 · 사실',
+  '기재위 · 세제 2건 계류':'기재위 · 세제 2건 계류',
+  'Environment & Labor Cmte':'환경노동위원회',
+  '3 dates ahead':'예정일 3건',
+  '본회의·시행일 캘린더':'본회의·시행일 일정',
+  'Foreign ownership 52%':'외국인 보유율 52%',
+  '외국인 보유 · fact':'외국인 보유 · 사실',
+  'US CHIPS Act signal':'미국 CHIPS법 신호',
+  '교차 신호 · est.':'교차 신호 · 추정',
+  'SK hynix ▲':'SK하이닉스 ▲',
+  '000660 · same 2 bills · peer':'000660 · 동일 법안 2건 · 동종사',
+  'Suppliers · 42 names ▲':'공급사 42곳 ▲',
+  '소부장 공급망 · est.':'소부장 공급망 · 추정',
+  'AMENDS':'개정', 'REVIEWED BY':'심사', 'PROPOSED BY':'발의', 'THEME':'테마',
+  'SCHEDULED':'예정', 'DEFINES':'정의', 'DELEGATES':'위임', 'ALSO BEFORE':'동일 위원회',
+  'SAME THEME':'동일 테마', 'VOTE SIGNAL':'표결 신호', 'COMPUTED FROM':'산출 근거',
+  'MATCHES ≈370 · FACT':'≈370개 매칭 · 사실', 'CONTEXT':'맥락', 'ALSO TOUCHES':'추가 영향',
+  'NAMED IN':'직접 명시', 'CRITERIA':'요건', 'WATCH':'관찰', 'STATUTE JOIN':'법률 연결',
+  'KEY CLAUSE':'핵심 조항', 'WATCHES':'일정', 'OWNERSHIP':'보유', 'CROSS-SIGNAL':'교차 신호',
+  'PEER · SAME BILLS':'동종사 · 동일 법안', 'SUPPLY CHAIN':'공급망'
+});
+
+const TRACE_TEXT_KO = Object.freeze({
+  'amends':'개정', 'reviewed by':'심사', 'proposed by':'발의', 'theme':'테마',
+  'scheduled':'예정', 'defines':'정의', 'delegates':'위임', 'also before':'동일 위원회',
+  'same theme':'동일 테마', 'signal':'신호', 'computed from':'산출', 'matches':'매칭',
+  'context':'맥락', 'criteria':'요건', 'named in':'직접 명시', 'watch':'관찰',
+  'statute join':'법률 연결', 'key clause':'핵심 조항', 'before':'심사', 'watches':'일정',
+  'ownership':'보유', 'cross-signal':'교차 신호', 'peer':'동종사', 'also touch':'동일 영향',
+  'supply chain':'공급망', 'Payout rule':'배당성향 요건', 'payout 41%':'배당성향 41%',
+  'payout 40%':'배당성향 40%', 'payout 43%':'배당성향 43%', 'payout 37%↑':'배당성향 37%↑',
+  'payout 58%':'배당성향 58%', 'payout 27%↑':'배당성향 27%↑', '+364 more names':'그 외 364개 종목',
+  'Samsung Electronics · 005930':'삼성전자 · 005930', 'Semiconductor Act':'반도체특별법',
+  'K-chips credit':'K-칩스 세액공제', 'Serious Accidents Act':'중대재해처벌법',
+  '52-hour rules':'52시간제 개정안', 'R&D hour carve-out §7':'R&D 근로시간 특례 §7',
+  'K-chips · Dividend tax':'K-칩스 · 배당소득 과세',
+  'Serious Accidents · 52-hour':'중대재해처벌법 · 52시간제', 'Foreign 52%':'외국인 52%',
+  'US CHIPS Act':'미국 CHIPS법', 'Semiconductor Act · K-chips':'반도체특별법 · K-칩스',
+  'SK hynix · 000660':'SK하이닉스 · 000660', '42 suppliers':'공급사 42곳'
+});
+
+/* ---------- trace copy (bilingual bodies) ---------- */
+const hop=(s)=>`<span class="hop">${s}</span>`, rel=(s)=>`<span class="rel">${s} →</span>`;
+const TRACES = {
+bill: {
+  c:    {p:hop('§91-19'), cta:1,
+         en:`The anchor. Elective 14–30% flat tax on dividends from qualifying high-payout names, 2026–28. ${P('fact')}`,
+         ko:`앵커 법안. 요건 충족 고배당 종목의 배당에 대해 2026–28년 구간별 14–30% 분리과세를 선택 적용. ${P('fact')}`},
+  stat: {p:hop('§91-19')+rel('amends')+hop('Special Taxation Act'),
+         en:`The new article slots into the existing tax-break statute — its sunset logic and decree hooks come with it. ${P('fact')}`,
+         ko:`신설 조문이 기존 조세특례제한법에 편입됩니다 — 일몰 조항과 시행령 위임 구조를 그대로 물려받습니다. ${P('fact')}`},
+  cmte: {p:hop('§91-19')+rel('reviewed by')+hop('Strategy & Finance Cmte'),
+         en:`Committee stage now; the Nov 28 rate deal happened here. ${P('fact')}`,
+         ko:`현재 위원회 심사 단계 — 11월 28일 세율 합의가 이곳에서 이루어졌습니다. ${P('fact')}`},
+  spon: {p:hop('§91-19')+rel('proposed by')+hop('13 sponsors'),
+         en:`Cross-party sponsor list — a bipartisan footprint lowers veto risk on the floor. ${P('est')}`,
+         ko:`여야 공동발의 13인 — 초당적 구성이 본회의 부결 리스크를 낮춥니다. ${P('est')}`},
+  them: {p:hop('§91-19')+rel('theme')+hop('Value-up · governance'),
+         en:`Theme node links this bill to the Commercial Act amendment and the wider Korea-discount agenda. ${P('est')}`,
+         ko:`테마 노드가 이 법안을 상법 개정안, 나아가 코리아 디스카운트 해소 어젠다와 연결합니다. ${P('est')}`},
+  evt:  {p:hop('§91-19')+rel('scheduled')+hop('Plenary · early Dec'), cta:1,
+         en:`Floor vote expected within days of the committee report. ${P('est')}`,
+         ko:`위원회 보고 후 수일 내 본회의 표결이 예상됩니다. ${P('est')}`},
+  crit: {p:hop('§91-19')+rel('defines')+hop('Payout ≥ 40% rule'),
+         en:`The machine-readable rule that turns law into a screen: payout ≥ 40%, or ≥ 25% and rising. ${P('fact')}`,
+         ko:`법 조문을 종목 스크리닝으로 바꾸는 기계가독 요건: 배당성향 ≥ 40%, 또는 ≥ 25% 상승 추세. ${P('fact')}`},
+  decr: {p:hop('Special Taxation Act')+rel('delegates')+hop('Enforcement decree'),
+         en:`MOEF decree fixes how the payout ratio is computed — the last-mile risk to the matched list. ${P('fact')}`,
+         ko:`배당성향 산정 방식은 기재부 시행령이 확정합니다 — 매칭 리스트의 마지막 변수. ${P('fact')}`},
+  bil3: {p:hop('Strategy & Finance Cmte')+rel('also before')+hop('Inheritance tax reform'),
+         en:`Competes for the same committee and floor time — a sequencing risk, not a substance link. ${P('est')}`,
+         ko:`같은 위원회·본회의 일정을 두고 경쟁하는 법안 — 내용이 아니라 순서의 리스크입니다. ${P('est')}`},
+  bil2: {p:hop('Value-up theme')+rel('same theme')+hop('Commercial Act amendment'),
+         en:`Sister bill in the value-up agenda; its company set overlaps this one's (dashed arc to the sector node). ${P('est')}`,
+         ko:`밸류업 어젠다의 자매 법안 — 영향 종목군이 이 법안과 겹칩니다(섹터 노드로 이어지는 점선 아크). ${P('est')}`},
+  vote: {p:hop('13 sponsors')+rel('signal')+hop('Rate deal · Nov 28'),
+         en:`Bipartisan rate agreement — the event driving the "passage: high" signal. ${P('fact')}`,
+         ko:`여야 세율 합의 — "통과 시그널: 높음"을 만든 결정적 이벤트. ${P('fact')}`},
+  dart: {p:hop('Payout rule')+rel('computed from')+hop('DART filings'),
+         en:`12,400 dividend filings joined from DART give every listed name a payout ratio. ${P('fact')}`,
+         ko:`DART 배당 공시 12,400건을 조인해 전 상장사의 배당성향을 산출합니다. ${P('fact')}`},
+  sect: {p:hop('Payout rule')+rel('matches')+hop('Banks & holdcos'),
+         en:`The match concentrates in financials and holding companies — ≈370 names, about 15% of the list. ${P('fact')}`,
+         ko:`매칭 결과는 금융·지주회사에 집중 — ≈370개사, 상장사의 약 15%. ${P('fact')}`},
+  fx:   {p:hop('Banks & holdcos')+rel('context')+hop('Foreign ownership 38%'),
+         en:`Matched names average 38% foreign ownership — why this bill matters to this audience. ${P('est')}`,
+         ko:`매칭 종목의 외국인 보유 평균 38% — 이 법안이 이 독자층에 중요한 이유. ${P('est')}`},
+  kb:   {p:hop('§91-19')+rel('criteria')+hop('payout 41%')+rel('DART')+hop('KB Financial · 105560'), dir:'up', cf:'high',
+         en:`Three documented hops from bill to ticker. Direction from committee report §3. ${P('sample')}`,
+         ko:`법안에서 티커까지 문서로 확인되는 3홉. 방향성 근거는 검토보고서 §3. ${P('sample')}`},
+  shin: {p:hop('§91-19')+rel('criteria')+hop('payout 40%')+rel('DART')+hop('Shinhan FG · 055550'), dir:'up', cf:'high',
+         en:`Sits just above the 40% threshold — decree math could move it. ${P('sample')}`,
+         ko:`40% 기준선 바로 위 — 시행령 산식에 따라 지위가 흔들릴 수 있습니다. ${P('sample')}`},
+  hana: {p:hop('§91-19')+rel('criteria')+hop('payout 43%')+rel('DART')+hop('Hana FG · 086790'), dir:'up', cf:'high',
+         en:`Comfortably in scope across all three payout definitions under discussion. ${P('sample')}`,
+         ko:`논의 중인 세 가지 산정 방식 모두에서 여유 있게 요건 충족. ${P('sample')}`},
+  sfm:  {p:hop('§91-19')+rel('criteria')+hop('payout 37%↑')+rel('DART')+hop('Samsung F&M · 000810'), dir:'up', cf:'mid',
+         en:`Qualifies on the "≥25% and rising" branch, not the flat 40% — mid confidence. ${P('sample')}`,
+         ko:`40% 단일 기준이 아닌 "≥25% 상승 추세" 분기로 충족 — 확신도 중간. ${P('sample')}`},
+  ktg:  {p:hop('§91-19')+rel('criteria')+hop('payout 58%')+rel('DART')+hop('KT&G · 033780'), dir:'up', cf:'mid',
+         en:`Highest payout in the matched set; already a foreign-ownership favorite. ${P('sample')}`,
+         ko:`매칭 집합 내 최고 배당성향 — 이미 외국인 선호 종목. ${P('sample')}`},
+  hmc:  {p:hop('§91-19')+rel('criteria')+hop('payout 27%↑')+rel('DART')+hop('Hyundai Motor · 005380'), dir:'up', cf:'low',
+         en:`In scope only if the decree keeps the "rising payout" branch — low confidence until then. ${P('sample')}`,
+         ko:`시행령이 "상승 추세" 분기를 유지할 때만 포함 — 그전까지 확신도 낮음. ${P('sample')}`},
+  more: {p:hop('§91-19')+rel('criteria')+hop('+364 more names'),
+         en:`Full matched list ships in the product with per-name payout math; this mockup shows six. ${P('sample')}`,
+         ko:`실서비스에는 종목별 배당성향 산출과 함께 전체 매칭 리스트가 제공됩니다 — 목업에는 6개만 표시. ${P('sample')}`}
+},
+co: {
+  c:    {p:hop('Samsung Electronics · 005930'),
+         en:`Five live bills touch this ticker today: two positive, two negative, one on watch. Reverse view of the same ontology. ${P('sample')}`,
+         ko:`오늘 이 종목에 걸린 법안 5건: 긍정 2, 부정 2, 관찰 1. 같은 온톨로지의 역방향 뷰입니다. ${P('sample')}`},
+  semi: {p:hop('005930')+rel('named in')+hop('Semiconductor Act'),
+         en:`Named in the bill text and committee report — the highest-confidence mapping path there is. ${P('fact')}`,
+         ko:`법안 원문과 검토보고서에 명시 — 존재하는 매핑 경로 중 최고 확신도. ${P('fact')}`},
+  kchp: {p:hop('005930')+rel('criteria')+hop('K-chips credit'),
+         en:`Matched via the R&D-capex criteria; credit rate is the open variable. ${P('fact')}`,
+         ko:`R&D 설비투자 요건으로 매칭 — 공제율이 남은 변수. ${P('fact')}`},
+  divw: {p:hop('005930')+rel('watch')+hop('Dividend tax · §91-19'), cta:1,
+         en:`Payout sits below today's threshold — a rising payout would pull 005930 into scope. Watch, not matched. ${P('est')}`,
+         ko:`현재 배당성향은 기준선 아래 — 배당 확대 시 요건에 진입합니다. 매칭이 아닌 관찰 상태. ${P('est')}`},
+  srac: {p:hop('005930')+rel('statute join')+hop('Serious Accidents Act'), dir:'dn',
+         en:`Applies to all large employers — broad path, so confidence is structural, not name-specific. ${P('est')}`,
+         ko:`대규모 사업장 전체에 적용 — 광역 경로라 확신도는 구조적 수준입니다. ${P('est')}`},
+  lbr:  {p:hop('005930')+rel('statute join')+hop('52-hour rules'), dir:'dn',
+         en:`Three pending amendments; exposure runs through the R&D carve-out fight. ${P('est')}`,
+         ko:`계류 개정안 3건 — 익스포저는 R&D 특례 공방에 달려 있습니다. ${P('est')}`},
+  ind:  {p:hop('Semiconductor Act')+rel('reviewed by')+hop('Industry & Energy Cmte'),
+         en:`Where the carve-out clause lives or dies. ${P('fact')}`,
+         ko:`특례 조항의 생사가 갈리는 곳. ${P('fact')}`},
+  cls:  {p:hop('Semiconductor Act')+rel('key clause')+hop('R&D hour carve-out §7'),
+         en:`The single clause that flips the 52-hour exposure from ▼ to neutral for chipmakers. ${P('fact')}`,
+         ko:`반도체 기업의 52시간 익스포저를 ▼에서 중립으로 뒤집는 단일 조항. ${P('fact')}`},
+  fin:  {p:hop('K-chips · Dividend tax')+rel('before')+hop('Strategy & Finance Cmte'),
+         en:`Both tax bills queue in the same committee — one calendar to watch, two exposures. ${P('fact')}`,
+         ko:`세제 법안 2건이 같은 위원회에 계류 — 캘린더 하나로 익스포저 둘을 감시합니다. ${P('fact')}`},
+  lab:  {p:hop('Serious Accidents · 52-hour')+rel('before')+hop('Environment & Labor Cmte'),
+         en:`Four labor items pending; downside paths cluster here. ${P('est')}`,
+         ko:`노동 안건 4건 계류 — 하방 경로가 이곳에 몰려 있습니다. ${P('est')}`},
+  cal:  {p:hop('005930')+rel('watches')+hop('3 dates ahead'),
+         en:`Plenary and enforcement dates that touch this ticker, in one feed. ${P('sample')}`,
+         ko:`이 종목에 닿는 본회의·시행 일정을 하나의 피드로. ${P('sample')}`},
+  fxo:  {p:hop('005930')+rel('ownership')+hop('Foreign 52%'),
+         en:`Majority-foreign register — the audience for this exposure map. ${P('fact')}`,
+         ko:`외국인 보유 과반 — 이 익스포저 맵의 1차 독자층. ${P('fact')}`},
+  chp:  {p:hop('Semiconductor Act')+rel('cross-signal')+hop('US CHIPS Act'),
+         en:`Policy competition abroad raised the domestic bill's priority — external signal fused into the graph. ${P('est')}`,
+         ko:`해외 정책 경쟁이 국내 법안의 우선순위를 끌어올림 — 외부 신호를 그래프에 융합. ${P('est')}`},
+  skh:  {p:hop('005930')+rel('peer')+hop('Semiconductor Act · K-chips')+rel('also touch')+hop('SK hynix · 000660'), dir:'up', cf:'high',
+         en:`Same two positive bills; the peer inherits the exposure map almost node for node. ${P('sample')}`,
+         ko:`같은 긍정 법안 2건 공유 — 피어가 익스포저 맵을 거의 그대로 물려받습니다. ${P('sample')}`},
+  sup:  {p:hop('005930')+rel('supply chain')+hop('42 suppliers'), dir:'up', cf:'low',
+         en:`Second-order reach: 소부장 names that move on the same enforcement dates. ${P('est')}`,
+         ko:`2차 파급: 같은 시행일에 함께 움직이는 소부장 42개사. ${P('est')}`}
+}
+};
+
+/* ---------- state ---------- */
+let view='bill', depth=3, lang='ko', curTrace=null;
+const svg=document.getElementById('graph');
+const nodeById=(v,id)=>VIEWS[v].nodes.find(n=>n.id===id);
+const esc=(s)=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const graphText=(value)=>lang==='ko'?(GRAPH_TEXT_KO[value]??value):value;
+
+function localizedTracePath(path){
+  if(lang!=='ko') return path;
+  return path.replace(/<span class="(hop|rel)">([^<]*)<\/span>/g,(_,cls,text)=>{
+    const term=cls==='rel'?text.replace(/\s*→\s*$/,''):text;
+    const translated=TRACE_TEXT_KO[term]??graphText(term);
+    return `<span class="${cls}">${translated}${cls==='rel'?' →':''}</span>`;
+  });
+}
+
+function localizeProvenance(root=document){
+  root.querySelectorAll('.provenance').forEach(el=>{
+    const kind=el.classList.contains('fact')?'fact':el.classList.contains('est')?'est':el.classList.contains('sample')?'sample':null;
+    if(kind) el.textContent=UI_EXTRA[lang].provenance[kind];
+  });
+}
+
+function applyExtraLocale(){
+  const t=UI_EXTRA[lang];
+  document.title=t.title;
+  document.querySelector('.langseg').setAttribute('aria-label',t.languageAria);
+  document.getElementById('lang-en').setAttribute('aria-label',t.chooseEn);
+  document.getElementById('lang-ko').setAttribute('aria-label',t.chooseKo);
+  document.querySelector('.seg').setAttribute('aria-label',t.graphAnchorAria);
+  document.querySelector('.depthset').setAttribute('aria-label',t.graphDepthAria);
+  svg.setAttribute('aria-label',t.graphAria);
+  document.querySelector('.pipe').setAttribute('aria-label',t.pipelineAria);
+  document.querySelector('.snapshot .mono').textContent=t.snapshotDate;
+  document.querySelector('.watch-row .w').textContent=t.sunsetDate;
+  document.querySelectorAll('.path .m').forEach((el,i)=>{el.textContent=t.pathMethods[i];});
+  document.querySelectorAll('.tickers .ticker').forEach((el,i)=>{el.textContent=t.tickers[i];});
+  document.querySelector('details.about summary').textContent=t.aboutSummary;
+  document.querySelector('details.about div').innerHTML=t.aboutBody;
+  document.querySelector('footer.page > span:last-child').textContent=t.sources;
+}
+
+/* ---------- render ---------- */
+function pillSvg(n){
+  const h = n.t==='billc'?48:42, x=n.x-n.w/2, y=n.y-h/2;
+  const localizedMain=graphText(n.main), localizedSub=graphText(n.sub);
+  let main=esc(localizedMain);
+  if(n.dir){const a=n.dir==='up'?'▲':'▼';main=main.replace(a,`<tspan class="arr-${n.dir==='up'?'pos':'neg'}">${a}</tspan>`);}
+  const bar=n.t==='co'?`<rect class="dbar" x="${x+5}" y="${y+7}" width="4" height="${h-14}" fill="var(--${n.dir==='dn'?'neg':'pos'})"/>`:'';
+  return `<g class="node t-${n.t}" data-node="${n.id}" tabindex="0" role="button" aria-label="${esc(localizedMain)}">
+    <title>${esc(localizedMain)} — ${esc(localizedSub)}</title>
+    <rect class="pill" x="${x}" y="${y}" width="${n.w}" height="${h}" rx="10"/>${bar}
+    <text class="main" x="${n.x}" y="${n.y-2}">${main}</text>
+    <text class="sub" x="${n.x}" y="${n.y+13}">${esc(localizedSub)}</text></g>`;
+}
+
+function render(){
+  const V=VIEWS[view], vis=id=>{const n=nodeById(view,id);return n&&n.d<=depth;};
+  let s='';
+  const R=[[185,105],[340,200],[480,290]];
+  for(let i=0;i<depth;i++) s+=`<ellipse class="ring" cx="560" cy="365" rx="${R[i][0]}" ry="${R[i][1]}"/>`;
+  V.badges.forEach((b,i)=>{ if(i<depth) s+=`<g class="rbadge"><circle cx="${b[0]}" cy="${b[1]}" r="9.5"/><text x="${b[0]}" y="${b[1]+3.5}">${i+1}</text></g>`; });
+  let labels='';
+  V.edges.forEach(e=>{ if(!vis(e.a)||!vis(e.b))return;
+    const A=nodeById(view,e.a),B=nodeById(view,e.b);
+    s+=`<line class="edge${e.dash?' dash':''}" data-a="${e.a}" data-b="${e.b}" x1="${A.x}" y1="${A.y}" x2="${B.x}" y2="${B.y}"/>`;
+    if(e.label) labels+=`<text class="elabel${e.em?' em':''}" x="${e.lx}" y="${e.ly}">${esc(graphText(e.label))}</text>`;
+  });
+  V.arcs.forEach(e=>{ if(!vis(e.a)||!vis(e.b))return;
+    const A=nodeById(view,e.a),B=nodeById(view,e.b);
+    s+=`<path class="edge${e.dash?' dash':''}" data-a="${e.a}" data-b="${e.b}" d="M ${A.x} ${A.y} Q ${e.cx} ${e.cy} ${B.x} ${B.y}"/>`;
+    if(e.label) labels+=`<text class="elabel" x="${e.lx}" y="${e.ly}">${esc(graphText(e.label))}</text>`;
+  });
+  if(V.column && depth>=3){
+    const F=nodeById(view,V.column.from), items=V.column.items.map(id=>nodeById(view,id));
+    const ys=items.map(n=>n.y), sx=V.column.spineX;
+    s+=`<path class="spine" d="M ${F.x+F.w/2} ${F.y} H ${sx} M ${sx} ${Math.min(...ys)} V ${Math.max(...ys)}"/>`;
+    items.forEach(n=>{ s+=`<line class="spine" data-a="${V.column.from}" data-b="${n.id}" x1="${sx}" y1="${n.y}" x2="${n.x-n.w/2}" y2="${n.y}"/>`; });
+  }
+  V.nodes.forEach(n=>{ if(n.d<=depth) s+=pillSvg(n); });
+  svg.innerHTML = s + labels;
+  document.getElementById('gcount').textContent = V.counts[lang];
+  document.getElementById('railtitle').textContent = V.railTitle[lang];
+  document.getElementById('railchips').innerHTML = V.rail.map(r=>`<button class="rchip" data-rail="${r.id}">${graphText(r.html)}</button>`).join('');
+  if(curTrace && TRACES[view][curTrace]) showTrace(curTrace);
+}
+
+function traceHint(){
+  document.getElementById('trace').innerHTML=`<p class="hint">${I18N[lang].hint}</p>`;
+}
+
+function showTrace(id){
+  const t=TRACES[view][id]; if(!t) return;
+  curTrace=id;
+  document.querySelectorAll('.node.sel').forEach(n=>n.classList.remove('sel'));
+  const g=svg.querySelector(`[data-node="${id}"]`); if(g) g.classList.add('sel');
+  let meta='';
+  if(t.dir) meta+=`<span class="dirchip ${t.dir}">${t.dir==='up'?I18N[lang].dirUp:I18N[lang].dirDn}</span>`;
+  if(t.cf)  meta+=`<span class="dirchip">${I18N[lang].conf} · ${UI_EXTRA[lang].confidence[t.cf]}</span>`;
+  if(t.cta) meta+=`<button class="btn" onclick="openBrief()">${I18N[lang].cta}</button>`;
+  const trace=document.getElementById('trace');
+  trace.innerHTML=`<div class="tpath">${localizedTracePath(t.p)}</div><div class="tbody">${t[lang]}</div>`+(meta?`<div class="tmeta">${meta}</div>`:'');
+  localizeProvenance(trace);
+}
+
+function setDepth(d){depth=d;for(let i=1;i<=3;i++)document.getElementById('d'+i).classList.toggle('on',i===d);render();}
+function setView(v){view=v;curTrace=null;document.getElementById('vw-bill').classList.toggle('on',v==='bill');document.getElementById('vw-co').classList.toggle('on',v==='co');
+  traceHint(); render(); document.getElementById('entry').scrollIntoView({block:'nearest'});}
+
+/* ---------- language ---------- */
+function setLang(l){
+  lang=l;
+  try{localStorage.setItem('klegis-lang',l);}catch(e){}
+  document.documentElement.lang = l==='ko'?'ko':'en';
+  document.getElementById('lang-en').classList.toggle('on',l==='en');
+  document.getElementById('lang-ko').classList.toggle('on',l==='ko');
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k=el.dataset.i18n; if(I18N[l][k]!==undefined) el.innerHTML=I18N[l][k];
+  });
+  updateThemeBtn();
+  render();
+  if(!curTrace) traceHint();
+}
+
+/* ---------- theme ---------- */
+function effTheme(){
+  const t=document.documentElement.dataset.theme;
+  if(t) return t;
+  return window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+}
+function updateThemeBtn(){
+  const dark = effTheme()==='dark';
+  document.getElementById('themeBtn').innerHTML =
+    dark?`☀ <span id="themeLbl">${I18N[lang].themeLight}</span>`:`☾ <span id="themeLbl">${I18N[lang].themeDark}</span>`;
+}
+function toggleTheme(){
+  const next = effTheme()==='dark'?'light':'dark';
+  document.documentElement.dataset.theme=next;
+  try{localStorage.setItem('klegis-theme',next);}catch(e){}
+  updateThemeBtn();
+}
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{ if(!document.documentElement.dataset.theme) updateThemeBtn(); });
+
+/* ---------- interactions ---------- */
+svg.addEventListener('click',e=>{const g=e.target.closest('[data-node]');if(g)showTrace(g.dataset.node);});
+svg.addEventListener('keydown',e=>{if(e.key!=='Enter'&&e.key!==' ')return;const g=e.target.closest('[data-node]');if(g){e.preventDefault();showTrace(g.dataset.node);}});
+svg.addEventListener('mouseover',e=>{const g=e.target.closest('[data-node]');if(!g)return;
+  svg.querySelectorAll(`[data-a="${g.dataset.node}"],[data-b="${g.dataset.node}"]`).forEach(el=>el.classList.add('hot'));});
+svg.addEventListener('mouseout',e=>{svg.querySelectorAll('.hot').forEach(el=>el.classList.remove('hot'));});
+document.getElementById('railchips').addEventListener('click',e=>{const c=e.target.closest('[data-rail]');if(c)showTrace(c.dataset.rail);});
+
+function openBrief(){document.body.classList.add('show-brief');window.scrollTo({top:0,behavior:'auto'});}
+function closeBrief(){document.body.classList.remove('show-brief');window.scrollTo({top:0,behavior:'auto'});}
+function toggleTier(btn){btn.nextElementSibling.classList.toggle('open');}
+
+/* ---------- init ---------- */
+(function(){
+  let sl=null, st=null;
+  try{sl=localStorage.getItem('klegis-lang'); st=localStorage.getItem('klegis-theme');}catch(e){}
+  if(st==='dark'||st==='light') document.documentElement.dataset.theme=st;
+  setLang(sl==='ko'?'ko':'en');
+})();
+</script>
+
+</body>
+</html>
